@@ -1,10 +1,10 @@
 // ─── Pomodoro ─────────────────────────────────────────────────────────────────
-export const DEFAULT_FOCUS_DURATION = 25 * 60;   // 25 minutos em segundos
-export const DEFAULT_BREAK_DURATION = 5 * 60;    // 5 minutos em segundos
-export const MIN_FOCUS_DURATION = 5 * 60;        // mínimo 5 minutos
-export const MAX_FOCUS_DURATION = 60 * 60;       // máximo 60 minutos
-export const MIN_BREAK_DURATION = 1 * 60;        // mínimo 1 minuto
-export const MAX_BREAK_DURATION = 30 * 60;       // máximo 30 minutos
+export const DEFAULT_FOCUS_DURATION = 25 * 60; // 25 minutos em segundos
+export const DEFAULT_BREAK_DURATION = 5 * 60; // 5 minutos em segundos
+export const MIN_FOCUS_DURATION = 1 * 60; // mínimo 5 minutos
+export const MAX_FOCUS_DURATION = 60 * 60; // máximo 60 minutos
+export const MIN_BREAK_DURATION = 1 * 60; // mínimo 1 minuto
+export const MAX_BREAK_DURATION = 30 * 60; // máximo 30 minutos
 
 // ─── Herói (valores base) ─────────────────────────────────────────────────────
 export const BASE_DAMAGE = 5;
