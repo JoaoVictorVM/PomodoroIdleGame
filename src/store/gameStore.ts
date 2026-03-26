@@ -1,3 +1,4 @@
+// src/store/gameStore.ts
 import { create } from "zustand";
 import {
   BASE_DAMAGE,
@@ -10,13 +11,8 @@ import {
 import { calcEnemyHp } from "@/lib/utils";
 
 interface GameStore {
-  // Moedas
   coins: number;
-
-  // Onda
   currentWave: number;
-
-  // Herói
   damage: number;
   speed: number;
   luck: number;
@@ -24,14 +20,13 @@ interface GameStore {
   luckLevel: number;
   speedLevel: number;
   heroSkin: string;
-
-  // Inimigo
   enemyHp: number;
   enemyMaxHp: number;
   enemySkin: string;
 
   // Actions
   setCoins: (coins: number) => void;
+  addCoins: (amount: number) => void;
   takeDamage: (amount: number) => void;
   killEnemy: () => void;
   loadStats: (stats: {
@@ -44,6 +39,18 @@ interface GameStore {
     speedLevel: number;
     currentWave: number;
   }) => void;
+  applyUpgrade: (
+    type: "damage" | "luck" | "speed",
+    newStats: {
+      coins: number;
+      damage: number;
+      luck: number;
+      speed: number;
+      dmgLevel: number;
+      luckLevel: number;
+      speedLevel: number;
+    },
+  ) => void;
   resetGame: () => void;
 }
 
@@ -63,9 +70,10 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
   setCoins: (coins) => set({ coins }),
 
+  addCoins: (amount) => set({ coins: get().coins + amount }),
+
   takeDamage: (amount) => {
-    const { enemyHp } = get();
-    const newHp = Math.max(0, enemyHp - amount);
+    const newHp = Math.max(0, get().enemyHp - amount);
     set({ enemyHp: newHp });
   },
 
@@ -94,6 +102,18 @@ export const useGameStore = create<GameStore>((set, get) => ({
       currentWave: stats.currentWave,
       enemyHp,
       enemyMaxHp: enemyHp,
+    });
+  },
+
+  applyUpgrade: (type, newStats) => {
+    set({
+      coins: newStats.coins,
+      damage: newStats.damage,
+      luck: newStats.luck,
+      speed: newStats.speed,
+      dmgLevel: newStats.dmgLevel,
+      luckLevel: newStats.luckLevel,
+      speedLevel: newStats.speedLevel,
     });
   },
 
