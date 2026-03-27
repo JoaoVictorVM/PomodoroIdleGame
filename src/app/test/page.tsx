@@ -1,53 +1,41 @@
 "use client";
 
 import { useState } from "react";
+import { useGame } from "@/hooks/useGame";
+import { usePomodoroStore } from "@/store/pomodoroStore";
 import { PomodoroTimer } from "@/components/pomodoro/PomodoroTimer";
 import { PomodoroControls } from "@/components/pomodoro/PomodoroControls";
 import { PomodoroConfig } from "@/components/pomodoro/PomodoroConfig";
-import { usePomodoro } from "@/hooks/usePomodoro";
-import { usePomodoroStore } from "@/store/pomodoroStore";
-import { CoinDisplay } from "@/components/game/CoinDisplay";
 import { GameArena } from "@/components/game/GameArena";
+import { CoinDisplay } from "@/components/game/CoinDisplay";
 import { HeroStats } from "@/components/stats/HeroStats";
 import { Shop } from "@/components/shop/Shop";
 
-function PomodoroTest() {
-  usePomodoro(); // ativa o tick
+function GameTest() {
+  useGame();
   const { phase } = usePomodoroStore();
   const [showConfig, setShowConfig] = useState(false);
 
   return (
-    <div className="game-card p-6 flex flex-col items-center gap-4 mt-6">
-      <h2 className="text-lg font-semibold text-[#f0f0f5]">
-        ⏱️ Teste do Pomodoro
-      </h2>
-      <PomodoroTimer />
-      <PomodoroControls />
-      <button
-        onClick={() => setShowConfig(true)}
-        className="text-sm text-[#9090a8] hover:text-[#f0f0f5] transition-colors"
-      >
-        Configurar
-      </button>
-      <p className="text-xs text-[#5a5a72]">Fase atual: {phase}</p>
-      {showConfig && <PomodoroConfig onClose={() => setShowConfig(false)} />}
-    </div>
-  );
-}
+    <div className="flex flex-col gap-4">
+      <div className="game-card p-6 flex flex-col items-center gap-4">
+        <h2 className="text-lg font-semibold text-[#f0f0f5]">⏱️ Pomodoro</h2>
+        <PomodoroTimer />
+        <PomodoroControls />
+        <button
+          onClick={() => setShowConfig(true)}
+          className="text-sm text-[#9090a8] hover:text-[#f0f0f5] transition-colors"
+        >
+          Configurar
+        </button>
+        <p className="text-xs text-[#5a5a72]">Fase atual: {phase}</p>
+        {showConfig && <PomodoroConfig onClose={() => setShowConfig(false)} />}
+      </div>
 
-function GameTest() {
-  return (
-    <div className="flex flex-col gap-4 mt-6">
-      <h2 className="text-lg font-semibold text-[#f0f0f5]">
-        ⚔️ Teste da Arena
-      </h2>
       <CoinDisplay />
       <GameArena />
       <HeroStats />
       <Shop />
-      <p className="text-xs text-[#5a5a72]">
-        Inicie o Pomodoro acima e veja o herói atacar o inimigo
-      </p>
     </div>
   );
 }
@@ -91,40 +79,41 @@ export default function TestPage() {
   }
 
   return (
-    <div className="p-8 flex flex-col gap-4 max-w-2xl">
-      <h1 className="text-2xl font-bold text-[#e63946]">🧪 Teste de API</h1>
-      <p className="text-[#9090a8] text-sm">
-        Logue primeiro em /login antes de testar
-      </p>
+    <div className="p-8 flex flex-col gap-6 max-w-2xl">
+      <h1 className="text-2xl font-bold text-[#e63946]">🧪 Teste Geral</h1>
 
-      <div className="flex gap-3 flex-wrap">
-        <button
-          onClick={testGetStats}
-          className="bg-[#4361ee] hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm"
-        >
-          GET /stats
-        </button>
-        <button
-          onClick={testPutStats}
-          className="bg-[#2dc653] hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm"
-        >
-          PUT /stats
-        </button>
-        <button
-          onClick={testUpgrade}
-          className="bg-[#e63946] hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm"
-        >
-          POST /upgrades (damage)
-        </button>
+      <div className="flex flex-col gap-2">
+        <h2 className="text-lg font-semibold text-[#f0f0f5]">API</h2>
+        <p className="text-[#9090a8] text-sm">
+          Logue primeiro em /login antes de testar
+        </p>
+        <div className="flex gap-3 flex-wrap">
+          <button
+            onClick={testGetStats}
+            className="bg-[#4361ee] hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm"
+          >
+            GET /stats
+          </button>
+          <button
+            onClick={testPutStats}
+            className="bg-[#2dc653] hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm"
+          >
+            PUT /stats
+          </button>
+          <button
+            onClick={testUpgrade}
+            className="bg-[#e63946] hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm"
+          >
+            POST /upgrades
+          </button>
+        </div>
+        {result && (
+          <pre className="bg-[#1a1a24] border border-[#2a2a3a] rounded-lg p-4 text-[#f0f0f5] text-sm overflow-auto">
+            {result}
+          </pre>
+        )}
       </div>
 
-      {result && (
-        <pre className="bg-[#1a1a24] border border-[#2a2a3a] rounded-lg p-4 text-[#f0f0f5] text-sm overflow-auto">
-          {result}
-        </pre>
-      )}
-
-      <PomodoroTest />
       <GameTest />
     </div>
   );

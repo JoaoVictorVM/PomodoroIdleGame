@@ -14,8 +14,8 @@ export interface UserStats {
   dmgLevel: number;
   luckLevel: number;
   speedLevel: number;
+  currentWave: number;
 }
-
 
 export type PomodoroPhase = "IDLE" | "FOCUS" | "BREAK";
 
@@ -29,7 +29,6 @@ export interface PomodoroState extends PomodoroConfig {
   timeLeft: number;
   isRunning: boolean;
 }
-
 
 export interface GameState {
   coins: number;
@@ -54,7 +53,6 @@ export interface EnemyState {
   skinPath: string;
 }
 
-
 export type UpgradeType = "damage" | "luck" | "speed";
 
 export interface Upgrade {
@@ -66,7 +64,6 @@ export interface Upgrade {
   cost: number;
   effect: string;
 }
-
 
 export interface ApiResponse<T = void> {
   success: boolean;
@@ -82,6 +79,7 @@ export interface UpdateStatsPayload {
   dmgLevel: number;
   luckLevel: number;
   speedLevel: number;
+  currentWave: number;
 }
 
 export interface RegisterPayload {
