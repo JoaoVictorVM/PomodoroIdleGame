@@ -1,16 +1,29 @@
+// src/components/game/Hero.tsx
 "use client";
 
-import { useGameStore } from "@/store/gameStore";
+import { useEffect, useState } from "react";
+import { useDamageStore } from "@/store/damageStore";
 
 export function Hero() {
-  const { heroSkin } = useGameStore();
+  const { events } = useDamageStore();
+  const [attacking, setAttacking] = useState(false);
 
-  // Placeholder SVG
+  // Anima o herói a cada ataque
+  useEffect(() => {
+    if (events.length === 0) return;
+    setAttacking(true);
+    const timer = setTimeout(() => setAttacking(false), 150);
+    return () => clearTimeout(timer);
+  }, [events.length]);
+
   return (
     <div className="flex flex-col items-center gap-2">
-      <div className="w-24 h-24 flex items-center justify-center">
+      <div
+        className={`w-24 h-24 flex items-center justify-center transition-transform duration-150 ${
+          attacking ? "translate-x-3" : "translate-x-0"
+        }`}
+      >
         <svg viewBox="0 0 100 100" className="w-full h-full">
-          {/* Corpo */}
           <circle cx="50" cy="25" r="12" fill="#2dc653" />
           <line
             x1="50"
@@ -21,7 +34,6 @@ export function Hero() {
             strokeWidth="5"
             strokeLinecap="round"
           />
-          {/* Braços */}
           <line
             x1="50"
             y1="45"
@@ -40,7 +52,6 @@ export function Hero() {
             strokeWidth="4"
             strokeLinecap="round"
           />
-          {/* Espada */}
           <line
             x1="72"
             y1="42"
@@ -59,7 +70,6 @@ export function Hero() {
             strokeWidth="2"
             strokeLinecap="round"
           />
-          {/* Pernas */}
           <line
             x1="50"
             y1="65"
@@ -80,7 +90,6 @@ export function Hero() {
           />
         </svg>
       </div>
-      <span className="text-xs text-[#9090a8]">Herói</span>
     </div>
   );
 }

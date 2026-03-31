@@ -1,11 +1,13 @@
 import { useEffect, useRef } from "react";
 import { useGameStore } from "@/store/gameStore";
 import { usePomodoroStore } from "@/store/pomodoroStore";
+import { useDamageStore } from "@/store/damageStore";
 import { calcAttackInterval } from "@/lib/utils";
 
 export function useGameLoop() {
   const { phase, isRunning } = usePomodoroStore();
   const { damage, speed, speedLevel, takeDamage, killEnemy } = useGameStore();
+  const { addEvent } = useDamageStore();
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -26,6 +28,7 @@ export function useGameLoop() {
       }
 
       takeDamage(currentDamage);
+      addEvent(currentDamage);
 
       if (useGameStore.getState().enemyHp <= 0) {
         killEnemy();
