@@ -1,22 +1,22 @@
-import type { Metadata } from "next"
-import { SessionProvider } from "@/components/providers/SessionProvider"
-import "./globals.css"
+import type { Metadata } from "next";
+import { SessionProvider } from "@/components/providers/SessionProvider";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Pomodoro Idle Game",
+  title: "Pomodoro Idle",
   description: "Seja produtivo enquanto seu herói luta!",
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="pt-BR">
-      <body className="min-h-screen bg-[#0f0f13] text-[#f0f0f5] antialiased">
+      <body className="min-h-screen bg-[#2E3440] text-[#ECEFF4] antialiased">
         <SessionProvider>{children}</SessionProvider>
       </body>
     </html>
-  )
+  );
 }

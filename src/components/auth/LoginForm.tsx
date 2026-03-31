@@ -1,47 +1,46 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { signIn } from "next-auth/react"
-import { useRouter } from "next/navigation"
+import { useState } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export function LoginForm() {
-  const router = useRouter()
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setError("")
-    setLoading(true)
+    e.preventDefault();
+    setError("");
+    setLoading(true);
 
     try {
       const result = await signIn("credentials", {
         email,
         password,
         redirect: false,
-      })
+      });
 
       if (result?.error) {
-        setError("Email ou senha incorretos")
-        return
+        setError("Email ou senha incorretos");
+        return;
       }
 
-      router.push("/")
-      router.refresh()
+      router.push("/");
+      router.refresh();
     } catch {
-      setError("Erro ao fazer login. Tente novamente.")
+      setError("Erro ao fazer login. Tente novamente.");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-
       {error && (
-        <div className="bg-[#e63946]/10 border border-[#e63946]/30 rounded-lg px-4 py-3 text-[#ff6b6b] text-sm">
+        <div className="bg-[#BF616A]/10 border border-[#BF616A]/20 rounded-lg px-4 py-3 text-[#BF616A] text-sm">
           {error}
         </div>
       )}
@@ -54,7 +53,7 @@ export function LoginForm() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="seu@email.com"
           required
-          className="bg-[#0f0f13] border border-[#2a2a3a] rounded-lg px-4 py-2.5 text-[#f0f0f5] text-sm placeholder-[#5a5a72] focus:outline-none focus:border-[#e63946] transition-colors"
+          className="bg-[#2E3440] border border-[#3B4252] rounded-lg px-4 py-2.5 text-[#ECEFF4] text-sm placeholder-[#4C566A] focus:outline-none focus:border-[#5E81AC] transition-colors w-full"
         />
       </div>
 
@@ -66,18 +65,17 @@ export function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="••••••••"
           required
-          className="bg-[#0f0f13] border border-[#2a2a3a] rounded-lg px-4 py-2.5 text-[#f0f0f5] text-sm placeholder-[#5a5a72] focus:outline-none focus:border-[#e63946] transition-colors"
+          className="bg-[#2E3440] border border-[#3B4252] rounded-lg px-4 py-2.5 text-[#ECEFF4] text-sm placeholder-[#4C566A] focus:outline-none focus:border-[#5E81AC] transition-colors w-full"
         />
       </div>
 
       <button
         type="submit"
         disabled={loading}
-        className="bg-[#e63946] hover:bg-[#c1121f] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-lg px-4 py-2.5 text-sm transition-colors mt-2"
+        className="w-full bg-[#5E81AC] hover:bg-[#81A1C1] disabled:opacity-50 disabled:cursor-not-allowed text-[#ECEFF4] font-medium rounded-lg px-4 py-2.5 text-sm transition-colors mt-2"
       >
         {loading ? "Entrando..." : "Entrar"}
       </button>
-
     </form>
-  )
+  );
 }

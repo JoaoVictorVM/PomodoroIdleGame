@@ -1,6 +1,7 @@
 "use client";
 
 import { usePomodoroStore } from "@/store/pomodoroStore";
+import { Play, Pause, RotateCcw } from "lucide-react";
 
 export function PomodoroControls() {
   const { isRunning, phase, start, pause, reset } = usePomodoroStore();
@@ -9,15 +10,16 @@ export function PomodoroControls() {
     <div className="flex items-center gap-3">
       <button
         onClick={reset}
-        className="px-4 py-2 rounded-lg text-sm text-[#9090a8] hover:text-[#f0f0f5] border border-[#2a2a3a] hover:border-[#9090a8] transition-colors"
+        className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm text-[#4C566A] hover:text-[#D8DEE9] border border-[#3B4252] hover:border-[#434C5E] transition-colors"
       >
+        <RotateCcw size={13} />
         Reiniciar
       </button>
-
       <button
         onClick={isRunning ? pause : start}
-        className="px-8 py-2 rounded-lg text-sm font-semibold bg-[#e63946] hover:bg-[#c1121f] text-white transition-colors"
+        className="flex items-center gap-2 px-6 py-2 rounded-lg text-sm font-medium bg-[#BF616A] hover:bg-[#D08770] text-[#ECEFF4] transition-colors"
       >
+        {isRunning ? <Pause size={14} /> : <Play size={14} />}
         {isRunning ? "Pausar" : phase === "IDLE" ? "Iniciar" : "Continuar"}
       </button>
     </div>

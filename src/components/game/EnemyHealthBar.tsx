@@ -7,24 +7,20 @@ export function EnemyHealthBar() {
   const percent = Math.max(0, (enemyHp / enemyMaxHp) * 100);
 
   const barColor =
-    percent > 50
-      ? "bg-[#2dc653]"
-      : percent > 25
-        ? "bg-[#ffd60a]"
-        : "bg-[#e63946]";
+    percent > 50 ? "#A3BE8C" : percent > 25 ? "#EBCB8B" : "#BF616A";
 
   return (
-    <div className="flex flex-col gap-1 w-48">
+    <div className="flex flex-col gap-1 w-52">
       <div className="flex justify-between items-center">
-        <span className="text-xs text-[#9090a8]">Onda {currentWave}</span>
-        <span className="text-xs text-[#9090a8]">
+        <span className="text-xs text-[#4C566A]">Onda {currentWave}</span>
+        <span className="text-xs text-[#4C566A]">
           {enemyHp}/{enemyMaxHp}
         </span>
       </div>
-      <div className="w-full h-3 bg-[#0f0f13] rounded-full overflow-hidden border border-[#2a2a3a]">
+      <div className="w-full h-2 bg-[#2E3440] rounded-full overflow-hidden border border-[#3B4252]">
         <div
-          className={`h-full rounded-full transition-all duration-150 ${barColor}`}
-          style={{ width: `${percent}%` }}
+          className="h-full rounded-full transition-all duration-150"
+          style={{ width: `${percent}%`, background: barColor }}
         />
       </div>
     </div>

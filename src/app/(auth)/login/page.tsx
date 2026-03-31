@@ -1,40 +1,46 @@
-import { LoginForm } from "@/components/auth/LoginForm"
-import Link from "next/link"
+import { LoginForm } from "@/components/auth/LoginForm";
+import Link from "next/link";
+import { Timer } from "lucide-react";
 
 export default function LoginPage() {
   return (
-    <main className="min-h-screen flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
-
-        {/* Logo */}
+    <main className="min-h-screen bg-[#2E3440] flex items-center justify-center px-4">
+      <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-[#e63946] mt-2">Pomodoro Idle</h1>
-          <p className="text-[#9090a8] text-sm mt-1">Entre para salvar seu progresso</p>
+          <div className="w-12 h-12 bg-[#BF616A] rounded-xl flex items-center justify-center mx-auto mb-3">
+            <Timer size={22} className="text-[#ECEFF4]" />
+          </div>
+          <h2 className="text-xl font-semibold text-[#ECEFF4]">
+            Pomodoro Idle
+          </h2>
+          <p className="text-[#4C566A] text-sm mt-1">
+            Entre para salvar seu progresso
+          </p>
         </div>
 
-        {/* Card */}
-        <div className="game-card p-6">
-          <h3 className="text-lg font-semibold text-[#f0f0f5] mb-6">Entrar</h3>
+        <div className="nord-card p-6">
+          <h3 className="text-sm font-medium text-[#ECEFF4] mb-5">Entrar</h3>
           <LoginForm />
-          <p className="text-center text-[#9090a8] text-sm mt-4">
+          <p className="text-center text-[#4C566A] text-xs mt-4">
             Não tem conta?{" "}
-            <Link href="/register" className="text-[#e63946] hover:underline">
+            <Link
+              href="/register"
+              className="text-[#81A1C1] hover:text-[#88C0D0] transition-colors"
+            >
               Registrar
             </Link>
           </p>
         </div>
 
-        {/* Jogar sem login */}
         <div className="text-center mt-4">
           <Link
             href="/"
-            className="text-[#5a5a72] text-sm hover:text-[#9090a8] transition-colors"
+            className="text-[#4C566A] text-xs hover:text-[#D8DEE9] transition-colors"
           >
             Continuar sem conta →
           </Link>
         </div>
-
       </div>
     </main>
-  )
+  );
 }

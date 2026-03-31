@@ -11,48 +11,51 @@ import { CoinDisplay } from "@/components/game/CoinDisplay";
 import { HeroStats } from "@/components/stats/HeroStats";
 import { Shop } from "@/components/shop/Shop";
 import { Navbar } from "@/components/ui/Navbar";
+import { Settings } from "lucide-react";
 
 export default function HomePage() {
   useGame();
-  const { phase } = usePomodoroStore();
   const [showConfig, setShowConfig] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-[#2E3440]">
       <Navbar />
 
-      <main className="flex-1 w-full max-w-4xl mx-auto px-4 py-6 flex flex-col gap-4">
-        {/* Timer */}
-        <div className="game-card p-6 flex flex-col items-center gap-4">
-          <div className="w-full flex justify-between items-center">
-            <span className="text-xs text-[#5a5a72] uppercase tracking-wider">
-              Pomodoro
-            </span>
-            <button
-              onClick={() => setShowConfig(true)}
-              className="text-xs text-[#9090a8] hover:text-[#f0f0f5] border border-[#2a2a3a] hover:border-[#9090a8] rounded-lg px-3 py-1.5 transition-colors"
-            >
-              ⚙️ Configurar
-            </button>
+      <div className="flex-1 flex justify-center">
+        <main className="w-full max-w-2xl px-4 py-6 flex flex-col gap-4">
+          {/* Timer */}
+          <div className="nord-card p-6 flex flex-col items-center gap-4">
+            <div className="w-full flex justify-between items-center">
+              <span className="text-xs text-[#4C566A] uppercase tracking-wider">
+                Pomodoro
+              </span>
+              <button
+                onClick={() => setShowConfig(true)}
+                className="flex items-center gap-1.5 text-xs text-[#4C566A] hover:text-[#D8DEE9] border border-[#3B4252] hover:border-[#434C5E] rounded-lg px-3 py-1.5 transition-colors"
+              >
+                <Settings size={12} />
+                Configurar
+              </button>
+            </div>
+            <PomodoroTimer />
+            <PomodoroControls />
           </div>
-          <PomodoroTimer />
-          <PomodoroControls />
-        </div>
 
-        {/* Arena */}
-        <GameArena />
+          {/* Arena */}
+          <GameArena />
 
-        {/* Moedas */}
-        <div className="flex justify-center">
-          <CoinDisplay />
-        </div>
+          {/* Moedas */}
+          <div className="flex justify-center">
+            <CoinDisplay />
+          </div>
 
-        {/* Stats + Loja */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <HeroStats />
-          <Shop />
-        </div>
-      </main>
+          {/* Stats + Loja */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <HeroStats />
+            <Shop />
+          </div>
+        </main>
+      </div>
 
       {showConfig && <PomodoroConfig onClose={() => setShowConfig(false)} />}
     </div>

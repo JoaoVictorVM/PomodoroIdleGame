@@ -1,14 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-interface DamageNumberProps {
+interface Props {
   damage: number;
   id: number;
   onDone: (id: number) => void;
 }
 
-export function DamageNumber({ damage, id, onDone }: DamageNumberProps) {
+export function DamageNumber({ damage, id, onDone }: Props) {
   useEffect(() => {
     const timer = setTimeout(() => onDone(id), 900);
     return () => clearTimeout(timer);
@@ -16,10 +16,10 @@ export function DamageNumber({ damage, id, onDone }: DamageNumberProps) {
 
   return (
     <span
-      className="absolute text-sm font-bold text-[#e63946] pointer-events-none select-none animate-damage"
+      className="absolute text-xs font-bold text-[#BF616A] pointer-events-none select-none animate-damage"
       style={{
-        top: `${20 + Math.random() * 20}%`,
-        right: `${15 + Math.random() * 15}%`,
+        top: `${15 + Math.random() * 20}%`,
+        right: `${10 + Math.random() * 15}%`,
       }}
     >
       -{damage}

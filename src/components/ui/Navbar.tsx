@@ -2,51 +2,55 @@
 
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
+import { Timer, LogOut, LogIn, UserPlus } from "lucide-react";
 
 export function Navbar() {
   const { data: session, status } = useSession();
   const isLoading = status === "loading";
 
   return (
-    <nav className="w-full border-b border-[#2a2a3a] bg-[#1a1a24]">
-      <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
-        {/* Logo */}
+    <nav className="w-full border-b border-[#3B4252] bg-[#2E3440]">
+      <div className="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-xl">🍅</span>
-          <span className="text-[#f0f0f5] font-bold text-sm hidden sm:block">
+          <div className="w-7 h-7 bg-[#BF616A] rounded-lg flex items-center justify-center">
+            <Timer size={14} className="text-[#ECEFF4]" />
+          </div>
+          <span className="text-[#ECEFF4] font-semibold text-sm">
             Pomodoro Idle
           </span>
         </Link>
 
-        {/* Auth */}
         <div className="flex items-center gap-3">
           {isLoading ? (
-            <span className="text-[#5a5a72] text-sm">...</span>
+            <span className="text-[#4C566A] text-sm">...</span>
           ) : session?.user ? (
             <>
-              <span className="text-[#9090a8] text-sm hidden sm:block">
+              <span className="text-[#4C566A] text-sm hidden sm:block">
                 {session.user.name || session.user.email}
               </span>
               <button
                 onClick={() => signOut({ callbackUrl: "/" })}
-                className="text-sm text-[#9090a8] hover:text-[#f0f0f5] border border-[#2a2a3a] hover:border-[#9090a8] rounded-lg px-3 py-1.5 transition-colors"
+                className="flex items-center gap-1.5 text-sm text-[#4C566A] hover:text-[#ECEFF4] border border-[#3B4252] hover:border-[#434C5E] rounded-lg px-3 py-1.5 transition-colors"
               >
-                Sair
+                <LogOut size={13} />
+                <span>Sair</span>
               </button>
             </>
           ) : (
             <>
               <Link
                 href="/login"
-                className="text-sm text-[#9090a8] hover:text-[#f0f0f5] transition-colors"
+                className="flex items-center gap-1.5 text-sm text-[#4C566A] hover:text-[#ECEFF4] transition-colors"
               >
-                Entrar
+                <LogIn size={13} />
+                <span>Entrar</span>
               </Link>
               <Link
                 href="/register"
-                className="text-sm bg-[#e63946] hover:bg-[#c1121f] text-white rounded-lg px-3 py-1.5 transition-colors"
+                className="flex items-center gap-1.5 text-sm bg-[#5E81AC] hover:bg-[#81A1C1] text-[#ECEFF4] rounded-lg px-3 py-1.5 transition-colors"
               >
-                Registrar
+                <UserPlus size={13} />
+                <span>Registrar</span>
               </Link>
             </>
           )}

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { usePomodoroStore } from "@/store/pomodoroStore";
+import { X } from "lucide-react";
 import {
   MIN_FOCUS_DURATION,
   MAX_FOCUS_DURATION,
@@ -15,7 +16,6 @@ interface Props {
 
 export function PomodoroConfig({ onClose }: Props) {
   const { focusDuration, breakDuration, setConfig } = usePomodoroStore();
-
   const [focusMin, setFocusMin] = useState(focusDuration / 60);
   const [breakMin, setBreakMin] = useState(breakDuration / 60);
 
@@ -33,52 +33,61 @@ export function PomodoroConfig({ onClose }: Props) {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 px-4">
-      <div className="game-card p-6 w-full max-w-sm">
-        <h3 className="text-lg font-semibold text-[#f0f0f5] mb-6">
-          Configurar Pomodoro
-        </h3>
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+      <div className="nord-card p-6 w-full max-w-sm">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-sm font-semibold text-[#ECEFF4]">
+            Configurar Pomodoro
+          </h3>
+          <button
+            onClick={onClose}
+            className="text-[#4C566A] hover:text-[#ECEFF4] transition-colors"
+          >
+            <X size={16} />
+          </button>
+        </div>
 
         <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-1">
-            <label className="text-[#9090a8] text-sm">
-              Tempo de foco (minutos)
-            </label>
-            <input
-              type="number"
-              value={focusMin}
-              onChange={(e) => setFocusMin(Number(e.target.value))}
-              min={MIN_FOCUS_DURATION / 60}
-              max={MAX_FOCUS_DURATION / 60}
-              className="bg-[#0f0f13] border border-[#2a2a3a] rounded-lg px-4 py-2.5 text-[#f0f0f5] text-sm focus:outline-none focus:border-[#e63946] transition-colors"
-            />
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <label className="text-[#9090a8] text-sm">
-              Tempo de descanso (minutos)
-            </label>
-            <input
-              type="number"
-              value={breakMin}
-              onChange={(e) => setBreakMin(Number(e.target.value))}
-              min={MIN_BREAK_DURATION / 60}
-              max={MAX_BREAK_DURATION / 60}
-              className="bg-[#0f0f13] border border-[#2a2a3a] rounded-lg px-4 py-2.5 text-[#f0f0f5] text-sm focus:outline-none focus:border-[#e63946] transition-colors"
-            />
-          </div>
+          {[
+            {
+              label: "Tempo de foco (minutos)",
+              value: focusMin,
+              set: setFocusMin,
+              min: MIN_FOCUS_DURATION / 60,
+              max: MAX_FOCUS_DURATION / 60,
+            },
+            {
+              label: "Tempo de descanso (minutos)",
+              value: breakMin,
+              set: setBreakMin,
+              min: MIN_BREAK_DURATION / 60,
+              max: MAX_BREAK_DURATION / 60,
+            },
+          ].map((field) => (
+            <div key={field.label} className="flex flex-col gap-1.5">
+              <label className="text-[#4C566A] text-xs">{field.label}</label>
+              <input
+                type="number"
+                value={field.value}
+                onChange={(e) => field.set(Number(e.target.value))}
+                min={field.min}
+                max={field.max}
+                className="bg-[#2E3440] border border-[#3B4252] rounded-lg px-4 py-2.5 text-[#ECEFF4] text-sm focus:outline-none focus:border-[#5E81AC] transition-colors"
+              />
+            </div>
+          ))}
         </div>
 
         <div className="flex gap-3 mt-6">
           <button
             onClick={onClose}
-            className="flex-1 px-4 py-2 rounded-lg text-sm text-[#9090a8] border border-[#2a2a3a] hover:border-[#9090a8] transition-colors"
+            className="flex-1 px-4 py-2 rounded-lg text-sm text-[#4C566A] border border-[#3B4252] hover:border-[#434C5E] transition-colors"
           >
             Cancelar
           </button>
           <button
             onClick={handleSave}
-            className="flex-1 px-4 py-2 rounded-lg text-sm font-semibold bg-[#e63946] hover:bg-[#c1121f] text-white transition-colors"
+            className="flex-1 px-4 py-2 rounded-lg text-sm font-medium bg-[#5E81AC] hover:bg-[#81A1C1] text-[#ECEFF4] transition-colors"
           >
             Salvar
           </button>

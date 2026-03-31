@@ -7,25 +7,32 @@ import { usePomodoroStore } from "@/store/pomodoroStore";
 import { purchaseUpgrade } from "@/services/userService";
 import { UpgradeCard } from "./UpgradeCard";
 import { UpgradeType } from "@/types";
+import { Swords, Zap, Star } from "lucide-react";
 
 const UPGRADES = [
   {
     type: "damage" as UpgradeType,
-    label: "Aumentar Dano",
+    label: "Dano",
     description: "+5 de dano por nível",
-    icon: "⚔️",
-  },
-  {
-    type: "luck" as UpgradeType,
-    label: "Aumentar Sorte",
-    description: "+1 moeda extra por kill",
-    icon: "🍀",
+    icon: Swords,
+    iconColor: "#BF616A",
+    iconBg: "#BF616A22",
   },
   {
     type: "speed" as UpgradeType,
-    label: "Aumentar Velocidade",
+    label: "Velocidade",
     description: "+0.5 ataque/s por nível",
-    icon: "⚡",
+    icon: Zap,
+    iconColor: "#EBCB8B",
+    iconBg: "#EBCB8B22",
+  },
+  {
+    type: "luck" as UpgradeType,
+    label: "Sorte",
+    description: "+1 moeda extra por kill",
+    icon: Star,
+    iconColor: "#A3BE8C",
+    iconBg: "#A3BE8C22",
   },
 ];
 
@@ -42,37 +49,23 @@ export function Shop() {
 
   const isLocked = phase === "FOCUS";
 
-  const levelMap = {
-    damage: dmgLevel,
-    luck: luckLevel,
-    speed: speedLevel,
-  };
-
   async function handleBuy(type: UpgradeType) {
     if (isLocked || loadingType) return;
     setMessage(null);
 
     if (!session?.user) {
+      const s = useGameStore.getState();
       applyUpgrade(type, {
-        coins: coins - 10,
-        damage:
-          type === "damage"
-            ? useGameStore.getState().damage + 5
-            : useGameStore.getState().damage,
-        luck:
-          type === "luck"
-            ? useGameStore.getState().luck + 1
-            : useGameStore.getState().luck,
-        speed:
-          type === "speed"
-            ? useGameStore.getState().speed + 0.5
-            : useGameStore.getState().speed,
-        dmgLevel: type === "damage" ? dmgLevel + 1 : dmgLevel,
-        luckLevel: type === "luck" ? luckLevel + 1 : luckLevel,
-        speedLevel: type === "speed" ? speedLevel + 1 : speedLevel,
+        coins: s.coins - calcLocalCost(type),
+        damage: type === "damage" ? s.damage + 5 : s.damage,
+        luck: type === "luck" ? s.luck + 1 : s.luck,
+        speed: type === "speed" ? s.speed + 0.5 : s.speed,
+        dmgLevel: type === "damage" ? s.dmgLevel + 1 : s.dmgLevel,
+        luckLevel: type === "luck" ? s.luckLevel + 1 : s.luckLevel,
+        speedLevel: type === "speed" ? s.speedLevel + 1 : s.speedLevel,
       });
       setMessage({
-        text: "Upgrade aplicado! (não salvo — faça login)",
+        text: "Upgrade aplicado! Faça login para salvar.",
         type: "success",
       });
       return;
@@ -83,54 +76,49 @@ export function Shop() {
       const updatedStats = await purchaseUpgrade(type);
       if (updatedStats) {
         applyUpgrade(type, updatedStats);
-        setMessage({ text: "Upgrade comprado com sucesso!", type: "success" });
+        setMessage({ text: "Upgrade comprado!", type: "success" });
       }
-    } catch (error: unknown) {
-      // Handle unknown error safely: prefer string, then Error, otherwise fallback message
-      const errorMessage =
-        typeof error === "string"
-          ? error
-          : error instanceof Error
-            ? error.message
-            : "Erro ao comprar upgrade";
-      setMessage({
-        text: errorMessage,
-        type: "error",
-      });
+    } catch (error: any) {
+      setMessage({ text: error.message || "Erro ao comprar", type: "error" });
     } finally {
       setLoadingType(null);
     }
   }
 
+  function calcLocalCost(type: UpgradeType) {
+    const { dmgLevel, luckLevel, speedLevel } = useGameStore.getState();
+    const map = { damage: dmgLevel, luck: luckLevel, speed: speedLevel };
+    return Math.round(UPGRADE_BASE_COST * Math.pow(1.5, map[type]));
+  }
+
+  const UPGRADE_BASE_COST = 10;
+
   return (
-    <div className="game-card p-4">
-      <div className="flex items-center justify-between mb-41">
-        <h3 className="text-sm font-semibold text-[#9090a8] uppercase tracking-wider">
+    <div className="nord-card p-4">
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="text-xs font-medium text-[#4C566A] uppercase tracking-wider">
           Loja
         </h3>
-        {isLocked && (
-          <span className="text-xs text-[#5a5a72]">
-            🔒 Disponível no descanso
-          </span>
-        )}
-        {!isLocked && (
-          <span className="text-xs text-[#2dc653]">✅ Loja aberta!</span>
-        )}
+        <span
+          className={`text-xs font-medium ${isLocked ? "text-[#BF616A]" : "text-[#A3BE8C]"}`}
+        >
+          {isLocked ? "Bloqueado durante o foco" : "Loja aberta"}
+        </span>
       </div>
 
       {message && (
         <div
           className={`mb-3 px-3 py-2 rounded-lg text-xs ${
             message.type === "success"
-              ? "bg-[#2dc653]/10 border border-[#2dc653]/30 text-[#2dc653]"
-              : "bg-[#e63946]/10 border border-[#e63946]/30 text-[#ff6b6b]"
+              ? "bg-[#A3BE8C]/10 border border-[#A3BE8C]/20 text-[#A3BE8C]"
+              : "bg-[#BF616A]/10 border border-[#BF616A]/20 text-[#BF616A]"
           }`}
         >
           {message.text}
         </div>
       )}
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col">
         {UPGRADES.map((upgrade) => (
           <UpgradeCard
             key={upgrade.type}

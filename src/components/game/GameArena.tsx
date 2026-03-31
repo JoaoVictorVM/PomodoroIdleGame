@@ -1,4 +1,3 @@
-// src/components/game/GameArena.tsx
 "use client";
 
 import { useGameLoop } from "@/hooks/useGameLoop";
@@ -8,39 +7,50 @@ import { Enemy } from "./Enemy";
 
 export function GameArena() {
   useGameLoop();
-
   const { phase } = usePomodoroStore();
 
   const bgColor = {
-    IDLE: "bg-[#1a1a24]",
-    FOCUS: "bg-[#1a1a1f]",
-    BREAK: "bg-[#1a1f1a]",
+    IDLE: "bg-[#2E3440]",
+    FOCUS: "bg-[#2E3440]",
+    BREAK: "bg-[#2E3440]",
+  };
+
+  const borderColor = {
+    IDLE: "border-[#3B4252]",
+    FOCUS: "border-[#BF616A]/30",
+    BREAK: "border-[#A3BE8C]/30",
   };
 
   return (
     <div
-      className={`relative w-full h-48 sm:h-56 rounded-xl border border-[#2a2a3a] ${bgColor[phase]} flex items-end justify-between px-8 sm:px-16 pb-4 overflow-hidden transition-colors duration-700`}
+      className={`relative w-full h-52 rounded-xl border ${bgColor[phase]} ${borderColor[phase]} flex items-end justify-between px-10 pb-5 overflow-hidden transition-colors duration-700`}
     >
-      {/* Herói */}
+      {/* Fundo decorativo */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="w-64 h-64 rounded-full bg-[#3B4252] opacity-20" />
+      </div>
+
+      {/* Chão */}
+      <div className="absolute bottom-16 left-0 right-0 h-px bg-[#3B4252]" />
+
       <Hero />
 
-      {/* Mensagem de fase */}
+      {/* Mensagens de fase */}
       {phase === "IDLE" && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <span className="text-[#5a5a72] text-sm">
+          <span className="text-[#4C566A] text-sm">
             Inicie o Pomodoro para começar
           </span>
         </div>
       )}
       {phase === "BREAK" && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <span className="text-[#2dc653] text-sm">
-            Descansando... Visite a loja! 🛍️
+          <span className="text-[#A3BE8C] text-sm">
+            Descansando... Visite a loja!
           </span>
         </div>
       )}
 
-      {/* Inimigo */}
       <Enemy />
     </div>
   );

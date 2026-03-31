@@ -1,123 +1,97 @@
 @import "tailwindcss";
 
-:root {
-  --game-bg: #0f0f13;
-  --game-surface: #1a1a24;
-  --game-border: #2a2a3a;
-  --game-card: #222230;
+@theme {
+    --color-nord0: #2e3440;
+    --color-nord1: #3b4252;
+    --color-nord2: #434c5e;
+    --color-nord3: #4c566a;
+    --color-nord4: #d8dee9;
+    --color-nord5: #e5e9f0;
+    --color-nord6: #eceff4;
+    --color-nord7: #8fbcbb;
+    --color-nord8: #88c0d0;
+    --color-nord9: #81a1c1;
+    --color-nord10: #5e81ac;
+    --color-nord11: #bf616a;
+    --color-nord12: #d08770;
+    --color-nord13: #ebcb8b;
+    --color-nord14: #a3be8c;
+    --color-nord15: #b48ead;
 
-  --brand-red: #e63946;
-  --brand-red-dark: #c1121f;
-  --brand-red-light: #ff6b6b;
+    --animate-float: float 3s ease-in-out infinite;
+    --animate-damage: damageFloat 1s ease-out forwards;
+    --animate-shake: shake 0.3s ease-in-out;
 
-  --accent-gold: #ffd60a;
-  --accent-green: #2dc653;
-  --accent-blue: #4361ee;
-
-  --text-primary: #f0f0f5;
-  --text-secondary: #9090a8;
-  --text-muted: #5a5a72;
+    @keyframes float {
+        0%,
+        100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-6px);
+        }
+    }
+    @keyframes damageFloat {
+        0% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-40px);
+            opacity: 0;
+        }
+    }
+    @keyframes shake {
+        0%,
+        100% {
+            transform: translateX(0);
+        }
+        25% {
+            transform: translateX(-3px);
+        }
+        75% {
+            transform: translateX(3px);
+        }
+    }
 }
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html,
 body {
-  height: 100%;
-  background-color: var(--game-bg);
-  color: var(--text-primary);
-  font-family: var(--font-ui, system-ui, sans-serif);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    height: 100%;
+    background-color: #2e3440;
+    color: #eceff4;
+    -webkit-font-smoothing: antialiased;
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
+    width: 6px;
 }
-
 ::-webkit-scrollbar-track {
-  background: var(--game-bg);
+    background: #2e3440;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: var(--game-border);
-  border-radius: 3px;
+    background: #3b4252;
+    border-radius: 3px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
-}
-
-@theme {
-  --color-game-bg: #0f0f13;
-  --color-game-surface: #1a1a24;
-  --color-game-border: #2a2a3a;
-  --color-game-card: #222230;
-
-  --color-brand-red: #e63946;
-  --color-brand-red-dark: #c1121f;
-  --color-brand-red-light: #ff6b6b;
-
-  --color-accent-gold: #ffd60a;
-  --color-accent-gold-dark: #e6b800;
-  --color-accent-green: #2dc653;
-  --color-accent-blue: #4361ee;
-
-  --animate-float: float 3s ease-in-out infinite;
-  --animate-shake: shake 0.3s ease-in-out;
-  --animate-damage: damageFloat 1s ease-out forwards;
-  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-8px); }
-  }
-
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-4px); }
-    75% { transform: translateX(4px); }
-  }
-
-  @keyframes damageFloat {
-    0% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(-50px); opacity: 0; }
-  }
+    background: #434c5e;
 }
 
 @layer utilities {
-  .game-surface {
-    background-color: var(--game-surface);
-    border: 1px solid var(--game-border);
-  }
-
-  .game-card {
-    background-color: var(--game-card);
-    border: 1px solid var(--game-border);
-    border-radius: 0.75rem;
-  }
-
-  .text-primary {
-    color: var(--text-primary);
-  }
-
-  .text-secondary {
-    color: var(--text-secondary);
-  }
-
-  .text-muted {
-    color: var(--text-muted);
-  }
-
-  .glow-red {
-    box-shadow: 0 0 20px rgba(230, 57, 70, 0.3);
-  }
-
-  .glow-gold {
-    box-shadow: 0 0 20px rgba(255, 214, 10, 0.3);
-  }
+    .nord-card {
+        background-color: #3b4252;
+        border: 0.5px solid #434c5e;
+        border-radius: 0.75rem;
+    }
+    .nord-surface {
+        background-color: #2e3440;
+        border: 0.5px solid #3b4252;
+        border-radius: 0.75rem;
+    }
 }
