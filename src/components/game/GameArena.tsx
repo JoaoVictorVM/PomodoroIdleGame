@@ -25,14 +25,6 @@ export function GameArena() {
     <div
       className={`relative w-full h-52 rounded-xl border ${bgColor[phase]} ${borderColor[phase]} flex items-end justify-between px-10 pb-5 overflow-hidden transition-colors duration-700`}
     >
-      {/* Fundo decorativo */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-64 h-64 rounded-full bg-[#3B4252] opacity-20" />
-      </div>
-
-      {/* Chão */}
-      <div className="absolute bottom-16 left-0 right-0 h-px bg-[#3B4252]" />
-
       <Hero />
 
       {/* Mensagens de fase */}

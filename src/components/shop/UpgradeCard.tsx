@@ -37,7 +37,7 @@ export function UpgradeCard({
   const canAfford = coins >= cost;
 
   return (
-    <div className="flex items-center justify-between gap-3 py-2.5 border-b border-[#2E3440] last:border-0">
+    <div className="flex items-center justify-between gap-3 py-2.5 border-b border-[#434C5E] last:border-0">
       <div className="flex items-center gap-3">
         <div
           className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
@@ -72,11 +72,7 @@ export function UpgradeCard({
           }
         `}
       >
-        {isLocked ? (
-          <>
-            <Lock size={11} /> Bloqueado
-          </>
-        ) : isLoading ? (
+        {isLoading ? (
           <>...</>
         ) : (
           <>

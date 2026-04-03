@@ -1,97 +1,84 @@
 @import "tailwindcss";
 
 @theme {
-    --color-nord0: #2e3440;
-    --color-nord1: #3b4252;
-    --color-nord2: #434c5e;
-    --color-nord3: #4c566a;
-    --color-nord4: #d8dee9;
-    --color-nord5: #e5e9f0;
-    --color-nord6: #eceff4;
-    --color-nord7: #8fbcbb;
-    --color-nord8: #88c0d0;
-    --color-nord9: #81a1c1;
-    --color-nord10: #5e81ac;
-    --color-nord11: #bf616a;
-    --color-nord12: #d08770;
-    --color-nord13: #ebcb8b;
-    --color-nord14: #a3be8c;
-    --color-nord15: #b48ead;
+  --color-nord0: #2e3440;
+  --color-nord1: #3b4252;
+  --color-nord2: #434c5e;
+  --color-nord3: #4c566a;
+  --color-nord4: #d8dee9;
+  --color-nord5: #e5e9f0;
+  --color-nord6: #eceff4;
+  --color-nord7: #8fbcbb;
+  --color-nord8: #88c0d0;
+  --color-nord9: #81a1c1;
+  --color-nord10: #5e81ac;
+  --color-nord11: #bf616a;
+  --color-nord12: #d08770;
+  --color-nord13: #ebcb8b;
+  --color-nord14: #a3be8c;
+  --color-nord15: #b48ead;
 
-    --animate-float: float 3s ease-in-out infinite;
-    --animate-damage: damageFloat 1s ease-out forwards;
-    --animate-shake: shake 0.3s ease-in-out;
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-damage: damageFloat 1s ease-out forwards;
+  --animate-shake: shake 0.3s ease-in-out;
 
-    @keyframes float {
-        0%,
-        100% {
-            transform: translateY(0px);
-        }
-        50% {
-            transform: translateY(-6px);
-        }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
     }
-    @keyframes damageFloat {
-        0% {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        100% {
-            transform: translateY(-40px);
-            opacity: 0;
-        }
+    50% {
+      transform: translateY(-6px);
     }
-    @keyframes shake {
-        0%,
-        100% {
-            transform: translateX(0);
-        }
-        25% {
-            transform: translateX(-3px);
-        }
-        75% {
-            transform: translateX(3px);
-        }
+  }
+  @keyframes damageFloat {
+    0% {
+      transform: translateY(0);
+      opacity: 1;
     }
+    100% {
+      transform: translateY(-40px);
+      opacity: 0;
+    }
+  }
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-3px);
+    }
+    75% {
+      transform: translateX(3px);
+    }
+  }
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 html,
 body {
-    height: 100%;
-    background-color: #2e3440;
-    color: #eceff4;
-    -webkit-font-smoothing: antialiased;
+  height: 100%;
+  background-color: #2e3440;
+  color: #eceff4;
+  -webkit-font-smoothing: antialiased;
 }
 
 ::-webkit-scrollbar {
-    width: 6px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-    background: #2e3440;
+  background: #2e3440;
 }
 ::-webkit-scrollbar-thumb {
-    background: #3b4252;
-    border-radius: 3px;
+  background: #3b4252;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #434c5e;
-}
-
-@layer utilities {
-    .nord-card {
-        background-color: #3b4252;
-        border: 0.5px solid #434c5e;
-        border-radius: 0.75rem;
-    }
-    .nord-surface {
-        background-color: #2e3440;
-        border: 0.5px solid #3b4252;
-        border-radius: 0.75rem;
-    }
+  background: #434c5e;
 }

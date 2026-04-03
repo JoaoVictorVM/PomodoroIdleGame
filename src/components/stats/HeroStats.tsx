@@ -1,7 +1,7 @@
 "use client";
 
 import { useGameStore } from "@/store/gameStore";
-import { Swords, Zap, Star } from "lucide-react";
+import { Swords, Zap, Star, Coins, Waves } from "lucide-react";
 
 const STATS = [
   {
@@ -32,13 +32,15 @@ const STATS = [
 
 export function HeroStats() {
   const store = useGameStore();
+  const { coins, currentWave } = store;
 
   return (
-    <div className="nord-card p-4">
+    <div className="bg-[#3b4252] border border-[#434C5E] rounded-lg p-4">
       <h3 className="text-xs font-medium text-[#4C566A] uppercase tracking-wider mb-3">
         Herói
       </h3>
       <div className="flex flex-col gap-2.5">
+        {/* Stats dinâmicos */}
         {STATS.map(({ key, label, icon: Icon, color, bg, levelKey }) => {
           const value = store[key];
           const level = store[levelKey];
@@ -71,6 +73,33 @@ export function HeroStats() {
             </div>
           );
         })}
+
+        {/* Divisor */}
+        <div className="border-t border-[#434C5E] my-0.5" />
+
+        {/* Moedas */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="w-6 h-6 rounded-md flex items-center justify-center bg-[#EBCB8B22]">
+              <Coins size={12} style={{ color: "#EBCB8B" }} />
+            </div>
+            <span className="text-[#D8DEE9] text-sm">Moedas</span>
+          </div>
+          <span className="text-sm font-semibold text-[#EBCB8B]">{coins}</span>
+        </div>
+
+        {/* Onda */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="w-6 h-6 rounded-md flex items-center justify-center bg-[#81A1C122]">
+              <Waves size={12} style={{ color: "#81A1C1" }} />
+            </div>
+            <span className="text-[#D8DEE9] text-sm">Onda</span>
+          </div>
+          <span className="text-sm font-semibold text-[#81A1C1]">
+            {currentWave}
+          </span>
+        </div>
       </div>
     </div>
   );

@@ -94,7 +94,7 @@ export function Shop() {
   const UPGRADE_BASE_COST = 10;
 
   return (
-    <div className="nord-card p-4">
+    <div className="bg-[#3B4252] border border-[#434C5E] rounded-lg p-4">
       <div className="flex items-center justify-between mb-3">
         <h3 className="text-xs font-medium text-[#4C566A] uppercase tracking-wider">
           Loja

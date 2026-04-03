@@ -7,7 +7,6 @@ import { PomodoroTimer } from "@/components/pomodoro/PomodoroTimer";
 import { PomodoroControls } from "@/components/pomodoro/PomodoroControls";
 import { PomodoroConfig } from "@/components/pomodoro/PomodoroConfig";
 import { GameArena } from "@/components/game/GameArena";
-import { CoinDisplay } from "@/components/game/CoinDisplay";
 import { HeroStats } from "@/components/stats/HeroStats";
 import { Shop } from "@/components/shop/Shop";
 import { Navbar } from "@/components/ui/Navbar";
@@ -24,7 +23,7 @@ export default function HomePage() {
       <div className="flex-1 flex justify-center">
         <main className="w-full max-w-2xl px-4 py-6 flex flex-col gap-4">
           {/* Timer */}
-          <div className="nord-card p-6 flex flex-col items-center gap-4">
+          <div className="border border-[#3B4252] rounded-lg p-6 flex flex-col items-center gap-4">
             <div className="w-full flex justify-between items-center">
               <span className="text-xs text-[#4C566A] uppercase tracking-wider">
                 Pomodoro
@@ -43,11 +42,6 @@ export default function HomePage() {
 
           {/* Arena */}
           <GameArena />
-
-          {/* Moedas */}
-          <div className="flex justify-center">
-            <CoinDisplay />
-          </div>
 
           {/* Stats + Loja */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

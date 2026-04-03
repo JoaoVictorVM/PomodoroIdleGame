@@ -7,7 +7,6 @@ import { PomodoroTimer } from "@/components/pomodoro/PomodoroTimer";
 import { PomodoroControls } from "@/components/pomodoro/PomodoroControls";
 import { PomodoroConfig } from "@/components/pomodoro/PomodoroConfig";
 import { GameArena } from "@/components/game/GameArena";
-import { CoinDisplay } from "@/components/game/CoinDisplay";
 import { HeroStats } from "@/components/stats/HeroStats";
 import { Shop } from "@/components/shop/Shop";
 
@@ -32,7 +31,6 @@ function GameTest() {
         {showConfig && <PomodoroConfig onClose={() => setShowConfig(false)} />}
       </div>
 
-      <CoinDisplay />
       <GameArena />
       <HeroStats />
       <Shop />
