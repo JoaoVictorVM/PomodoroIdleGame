@@ -183,3 +183,7 @@ Para deploy manual:
 ```bash
 npx prisma migrate deploy  # Aplica migrations em produção
 ```
+
+## Licenca
+
+Este projeto esta sob a licenca MIT. Veja o arquivo [LICENSE](LICENSE).
